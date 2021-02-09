@@ -1,21 +1,19 @@
 package com.example.projektpracownia;
 
-/*import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;*/
+import javax.persistence.*;
 
-//@Entity
+@Entity
 public class UserModel {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
-    //private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
+
     private String name;
     private String surname;
     private String dateOfBirth;
     private String login;
-    //private boolean isDeleted;
+    private boolean isDeleted = false;
 
     public UserModel(){}
 
@@ -26,9 +24,9 @@ public class UserModel {
         this.login = login;
     }
 
-    /*public long getId(){
+    public long getId(){
         return id;
-    }*/
+    }
 
     public String getName(){
         return name;
