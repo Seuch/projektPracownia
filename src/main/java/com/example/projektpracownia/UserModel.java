@@ -13,7 +13,7 @@ public class UserModel {
     private String surname;
     private String dateOfBirth;
     private String login;
-    private boolean isDeleted = false;
+    private final boolean isDeleted = false;
 
     public UserModel(){}
 
@@ -43,4 +43,6 @@ public class UserModel {
     public String getLogin(){
         return login;
     }
+
+    public boolean checkIsDeleted() { return isDeleted; }
 }

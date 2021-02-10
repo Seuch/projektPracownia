@@ -1,9 +1,6 @@
 package com.example.projektpracownia;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -19,8 +16,18 @@ public class UserListController {
     }
 
     @GetMapping(value = "/all")
-    public List<UserModel> getAll(){
+    public List<UserModel> showAll(){
         return userListRepository.findByisDeletedFalse();
+    }
+
+    @PostMapping(value = "/allcheat")
+    public List<UserModel> showEveryone(){
+        return userListRepository.findAll();
+    }
+
+    @PostMapping(value = "/all/{id}")
+    public Optional<UserModel> showOne(@PathVariable long id){
+        return userListRepository.findById(id);
     }
 
     @PostMapping(value = "/add", headers = "Accept=application/json")
@@ -30,9 +37,23 @@ public class UserListController {
         return userListRepository.findByisDeletedFalse();
     }
 
-    @GetMapping(value = "/delete/{id}")
+    @PostMapping(value = "/delete/{id}")
     public List<UserModel> remove(@PathVariable long id){
         userListRepository.delete(id);
+
+        return userListRepository.findByisDeletedFalse();
+    }
+
+    @PostMapping(value = "/undo/{id}")
+    public List<UserModel> undoRemove(@PathVariable long id){
+        userListRepository.undoDelete(id);
+
+        return userListRepository.findByisDeletedFalse();
+    }
+
+    @PutMapping(value = "/update")
+    public List<UserModel> update(@RequestBody UserModel userModel){
+        userListRepository.save(userModel);
 
         return userListRepository.findByisDeletedFalse();
     }

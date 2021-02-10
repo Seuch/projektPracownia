@@ -17,4 +17,9 @@ public interface UserListRepository extends JpaRepository<UserModel, Long> {
     @Transactional
     @Query("UPDATE UserModel x set x.isDeleted = true where x.id = :id")
     void delete(@Param(value = "id") long id);
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("UPDATE UserModel x set x.isDeleted = false where x.id = :id")
+    void undoDelete(@Param(value = "id") long id);
 }
